@@ -83,8 +83,11 @@ node app.js
 
 ## 📸 Demo
 
+## CLI Chatbot Demo
 ![CLI Chatbot Demo](screenshots/chatbot-demo.png)
+## First Curl Call
 ![First Curl Call](screenshots/first-curl-call.png)
+## Python SDK version
 ![Python SDK version](screenshots/python-sdk-version.png)
 
 
