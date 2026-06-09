@@ -1,272 +1,199 @@
-# 🤖 CLI Chatbot — Powered by Anthropic Claude
-A command-line chatbot built with Node.js and the Anthropic Claude API. Conversations are preserved across sessions using a local `history.json` file.
+# 🤖 CLI Chatbot Powered by Gemini API
+
+A simple multi-turn command-line chatbot built with **Node.js** and the **Google Gemini API**. The chatbot maintains conversation history across sessions using a local JSON file, allowing users to continue conversations even after restarting the application.
+
 ---
-## ✨ Features
-- 💬 Chat with Claude directly in your terminal
-- 🧠 Persistent conversation history (survives restarts)
-- 🔐 Secure API key management via `.env`
-- ⚡ ES Modules + modern async/await patterns
-- 🛡️ Graceful error handling for common API issues
+
+## 📌 Features
+
+* 💬 Multi-turn conversational chatbot
+* 🧠 Persistent chat history using `history.json`
+* 🔑 Secure API key management with `.env`
+* ⚡ Built with modern JavaScript (ES Modules)
+* 🛡️ Error handling for API, network, and quota issues
+* 📂 Automatically loads previous conversations on startup
+* 🖥️ Terminal-based interface (CLI)
+
 ---
+
+## 🛠️ Tech Stack
+
+* Node.js
+* JavaScript (ES Modules)
+* Google Gemini API
+* dotenv
+* readline
+* fs (File System)
+
+---
+
 ## 📋 Prerequisites
-|
- Requirement 
-|
- Version  
-|
- How to Check         
-|
-|
--------------
-|
-----------
-|
-----------------------
-|
-|
- Node.js     
-|
- ≥ 18.0.0 
-|
-`node --version`
-|
-|
- npm         
-|
- ≥ 8.0.0  
-|
-`npm --version`
-|
-|
- Anthropic API Key 
-|
- Any 
-|
-[
-console.anthropic.com
-](
-https://console.anthropic.com/settings/keys
-)
-|
+
+Before running the project, ensure you have:
+
+* Node.js v18 or later
+* npm
+* Google Gemini API Key
+
+Check versions:
+
+```bash
+node --version
+npm --version
+```
+
+Get your Gemini API Key from:
+
+https://aistudio.google.com/app/apikey
+
 ---
-## 🚀 Quick Start
-### 1. Install dependencies
+
+## 🚀 Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/cli-chatbot.git
+cd cli-chatbot
+```
+
+### 2. Install Dependencies
+
 ```bash
 npm install
 ```
-### 2. Add your API key
-Open `.env` and replace the placeholder:
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+GEMINI_API_KEY=your_api_key_here
 ```
-ANTHROPIC_API_KEY=sk-ant-your-real-key-here
-```
-### 3. Run the chatbot
+
+---
+
+## ▶️ Run the Application
+
 ```bash
-npm start
+node app.js
 ```
+
 ---
-## 💻 Usage
+
+## 📸 Demo
+
+![CLI Chatbot Demo](screenshots/chatbot-demo.png)
+![First Curl Call](screenshots/first-curl-call.png)
+![Python SDK version](screenshots/python-sdk-version.png)
+
+
+---
+
+## 🧠 How It Works
+
+1. User enters a message in the terminal.
+2. Message is added to conversation history.
+3. Full history is sent to Gemini API.
+4. Gemini generates a response.
+5. Response is displayed in the terminal.
+6. Conversation is saved to `history.json`.
+7. Previous history is automatically loaded on next startup.
+
+---
+
+## ⚙️ Configuration
+
+Inside `app.js`:
+
+```javascript
+const MODEL = "gemini-2.0-flash";
+const MAX_OUTPUT_TOKENS = 1024;
 ```
-══════════════════════════════════════════════════
-  🤖  CLI Chatbot powered by Claude
-  Type your message and press Enter.
-  Type "exit", "quit", or "/exit" to stop.
-══════════════════════════════════════════════════
-You: Hello!
-Claude: Hi there! How can I help you today?
-You: Explain what React is in 2 sentences.
-Claude: React is a JavaScript library developed by Meta for building
-user interfaces, particularly single-page applications. It uses a
-component-based architecture and a virtual DOM to efficiently update
-and render UI elements based on changing data.
-You: exit
-👋  Goodbye! Your conversation has been saved.
+
+### Available Gemini Models
+
+| Model            | Description                    |
+| ---------------- | ------------------------------ |
+| gemini-2.5-pro   | Most capable reasoning model   |
+| gemini-2.0-flash | Fast and efficient             |
+| gemini-2.5-flash | Faster with strong performance |
+
+---
+
+## ⚠️ Common Issues
+
+### Quota Exceeded (429)
+
+```text
+You exceeded your current quota
 ```
-### Exit Commands
-|
- Command  
-|
- Works? 
-|
-|
-----------
-|
---------
-|
-|
-`exit`
-|
- ✅ Yes 
-|
-|
-`quit`
-|
- ✅ Yes 
-|
-|
-`/exit`
-|
- ✅ Yes 
-|
-|
-`EXIT`
-|
- ✅ Yes (case-insensitive) 
-|
+
+**Solution:**
+
+* Check API usage limits
+* Wait for quota reset
+* Verify billing and API access
+
 ---
-## 📁 Project Structure
+
+### Authentication Error (401)
+
+```text
+Invalid API Key
 ```
-cli-chatbot/
-├── app.js          ← Main application logic
-├── package.json    ← Project metadata & dependencies
-├── .env            ← 🔐 Your secret API key (never commit this!)
-├── .gitignore      ← Tells Git what to ignore
-├── history.json    ← Conversation history (auto-managed)
-└── README.md       ← This file
+
+**Solution:**
+
+* Verify `.env` file
+* Ensure `GEMINI_API_KEY` is correct
+
+---
+
+### Network Error
+
+```text
+ENOTFOUND
 ```
+
+**Solution:**
+
+* Check internet connection
+* Verify firewall settings
+
 ---
-## 🔧 Configuration
-Edit these constants at the top of `app.js` to customize behavior:
-|
- Constant     
-|
- Default           
-|
- Description                          
-|
-|
---------------
-|
--------------------
-|
---------------------------------------
-|
-|
-`MODEL`
-|
-`claude-opus-4-5`
-|
- Claude model to use                  
-|
-|
-`MAX_TOKENS`
-|
-`1024`
-|
- Max length of Claude's response      
-|
-### Available Claude Models
-|
- Model               
-|
- Speed    
-|
- Cost   
-|
- Best For               
-|
-|
----------------------
-|
-----------
-|
---------
-|
-------------------------
-|
-|
-`claude-opus-4-5`
-|
- Slower   
-|
- Higher 
-|
- Complex reasoning      
-|
-|
-`claude-sonnet-4-5`
-|
- Balanced 
-|
- Medium 
-|
- General use            
-|
-|
-`claude-haiku-3-5`
-|
- Fastest  
-|
- Lower  
-|
- Quick, simple tasks    
-|
+
+## 🔒 Environment Variables
+
+Required:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+```
+
+Never commit your actual `.env` file to GitHub.
+
 ---
-## ⚠️ Common Issues & Fixes
-|
- Error 
-|
- Cause 
-|
- Fix 
-|
-|
--------
-|
--------
-|
------
-|
-|
-`Authentication Error`
-|
- Wrong API key 
-|
- Check 
-`.env`
- file 
-|
-|
-`Cannot find module`
-|
- Missing 
-`"type": "module"`
-|
- Check 
-`package.json`
-|
-|
-`Rate Limit`
-|
- Too many requests 
-|
- Wait 60 seconds and retry 
-|
-|
-`ENOTFOUND`
-|
- No internet connection 
-|
- Check your network 
-|
-|
-`history.json malformed`
-|
- Manual edit gone wrong 
-|
- Delete file, it auto-recreates 
-|
+
+## 📚 Learning Outcomes
+
+This project helped in understanding:
+
+* LLM API integration
+* API authentication
+* Environment variables
+* Async/Await in Node.js
+* File handling with Node.js
+* Multi-turn conversation management
+* Error handling in API applications
+
 ---
-## 🔮 Optional Improvements
-1. **Streaming Responses** — Display Claude's reply word-by-word as it generates (using `client.messages.stream()`)
-2. **System Prompt** — Give Claude a custom persona or instructions (e.g., "You are a helpful cooking assistant")
-3. **Clear History Command** — Add a `/clear` command to reset conversation history
-4. **Colorized Output** — Use the `chalk` npm package to color `You:` in blue and `Claude:` in green
----
-## 📖 Learning Resources
-- [Anthropic API Docs](https://docs.anthropic.com/)
-- [Node.js readline Docs](https://nodejs.org/api/readline.html)
-- [dotenv npm package](https://www.npmjs.com/package/dotenv)
-- [ES Modules in Node.js](https://nodejs.org/api/esm.html)
----
-## 📄 License
-MIT
+
+## 🔮 Future Improvements
+
+* Streaming responses
+* Web-based UI using React
+* Voice input support
+* Database-backed chat history
+* Multiple chatbot personalities
+* Markdown rendering
