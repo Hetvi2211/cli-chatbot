@@ -1,0 +1,20 @@
+{
+  "name": "cli-chatbot",
+  "version": "1.0.0",
+  "description": "A CLI chatbot powered by the Anthropic Claude API with persistent conversation history.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.8.0",
+    "dotenv": "^16.6.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}
