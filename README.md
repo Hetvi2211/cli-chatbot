@@ -53,7 +53,7 @@ https://aistudio.google.com/app/apikey
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/cli-chatbot.git
+git clone https://github.com/Hetvi2211/cli-chatbot.git
 cd cli-chatbot
 ```
 
